@@ -39,3 +39,15 @@
     margin: 0.5em;
 
 }
+
+.box-four {
+  
+    padding: 0.1em;
+    background-color: #000000;
+    border: 0 solid #27AE60;
+	color: #fff;
+    
+ /* Do not forget the behaviour known as margin collapsing. When two elements have two different margins, they will be separated by the highest one.  */
+    margin: 0em;
+
+}
