@@ -28,16 +28,17 @@ hr {
 }
 
 .note {
-    height: 100px;
+    height: 150px;
     box-sizing: border-box;
     padding: 16px;
     border: none;
     border-radius: 10px;
     box-shadow: 0 0 7px;
+    resize: none;
 }
 
 .add-note {
-    font-size: 1.3em;
+    font-size: 1.2em;
     color: #fff;
     background-color: #0289bf;
     border-radius: 10px;
