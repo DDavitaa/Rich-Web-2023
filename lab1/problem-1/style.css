@@ -1,0 +1,11 @@
+.container {
+	display: flex;
+	border: 1px solid black;
+}
+
+.item {
+	background-color: #ff0000;
+	border: 2px solid green;
+	width: 25%;
+	height: 50px;
+}
