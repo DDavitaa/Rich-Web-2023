@@ -18,3 +18,9 @@
 		width: calc(50% - 4px);
 	}
 }
+
+@media (max-width: 640px) {
+	.item {
+		width: 100%;
+	}
+}
