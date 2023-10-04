@@ -1,0 +1,11 @@
+body {
+    margin: 0;
+    background-color: #444444;
+}
+
+#note-app {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    padding: 24px;
+    gap: 24px;
+}
