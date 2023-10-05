@@ -14,6 +14,9 @@ getNotes().forEach(note => {
 
 addNoteButton.addEventListener("click", () => addNote());
 
+// array of colors: white, light red, light yellow, light green, light blue, light purple, light pink
+const colors = ["#ffffff","#fcacac","#fffead","#a4faa2","#a3fdff","#cfa8ff","#faa0eb"];
+
 // gets all notes
 function getNotes()
 {
