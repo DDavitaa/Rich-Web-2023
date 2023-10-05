@@ -38,6 +38,7 @@ hr {
 }
 
 .add-note {
+    height: 150px;
     font-size: 1.2em;
     color: #fff;
     background-color: #0289bf;
