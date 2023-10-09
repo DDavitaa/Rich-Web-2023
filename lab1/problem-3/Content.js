@@ -13,6 +13,7 @@ let metalPipe_images = [
 window.onload = function() {
     // changes background image
     document.body.style.backgroundImage = `url(${metalPipe_images[Math.floor(Math.random() * metalPipe_images.length)]})`;
+    // document.body.style.backgroundSize = "50%";
 
     // changes all images
     const imgs = document.getElementsByTagName("img");
@@ -33,6 +34,12 @@ window.onload = function() {
         headers2[i].innerText = "I LOVE METAL PIPE";
     }
 
+    // changes all h3
+    const headers3 = document.getElementsByTagName("h3");
+    for (let i = 0; i < headers3.length; i++){
+        headers3[i].innerText = "METAL PIPE IS MY LIFE";
+    }
+
     // changes all p
     const p = document.getElementsByTagName("p");
     for (let i = 0; i < p.length; i++){
@@ -47,30 +54,41 @@ window.onload = function() {
         buttons[i].style.color = "black";
     }
 
-    // changes all links
+    // changes every link
     const links = document.getElementsByTagName("a");
     for (let i = 0; i < links.length; i++){
         links[i].href = "https://www.metalpipe.com";
     }
 
+    // changes every list item
     const li = document.getElementsByTagName("li");
     for (let i = 0; i < li.length; i++){
-        li[i].innerText = "METAL BALL ";
+        li[i].innerText = "METAL BALL";
     }
 
-    const divs = document.querySelectorAll("div");
+    // changes every div
+    const divs = document.getElementsByTagName("div");
     for (let i = 0; i < divs.length; i++){
         divs[i].style.backgroundColor = "transparent";
     }
 
-    // Create an audio element
-    const audio = new Audio("https://tuna.voicemod.net/sound/ade71f0d-a41b-4e3a-8097-9f1cc585745c");
-
-    // Play the audio when the page finishes loading
-    window.addEventListener("load", function() {
-    audio.play();
-    });
-
+    // changes every span
+    const spans = document.getElementsByTagName("span");
+    for (let i = 0; i < spans.length; i++){
+        spans[i].style.color = "red";
+        spans[i].style.fontWeight = "bold";
+        spans[i].style.textDecoration = "underline";
+        spans[i].style.textTransform = "uppercase";
+    }
     
+
+
+    const audio = new Audio("metal_pipe.mp3");
+
+    // Add a click event listener to the element you want to trigger the audio
+    const element = document.querySelector("selector");
+    element.addEventListener("click", function() {
+        audio.play();
+    });
     
 }

@@ -11,6 +11,7 @@ These are the changes:
 - Changed images in array.
 - Made sure to run everything after all initial scripts from the webpages have been loaded.
 - Changed background to just metal pipes.
-- Changed what h1 says
+- Changed all images to metal pipes.
+- Changed what h1 says.
 
 
