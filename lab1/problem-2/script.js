@@ -17,6 +17,31 @@ addNoteButton.addEventListener("click", () => addNote());
 // array of colors: white, light red, light yellow, light green, light blue, light purple, light pink
 const colors = ["#ffffff","#fcacac","#fffead","#a4faa2","#a3fdff","#cfa8ff","#faa0eb"];
 
+var colorPicker = document.getElementById("color-picker");
+
+function openColors() 
+{
+    colorPicker.style.display = "block";
+    document.getElementById("color_white").style.backgroundColor = colors[0];
+    document.getElementById("color_red").style.backgroundColor = colors[1];
+    document.getElementById("color_yellow").style.backgroundColor = colors[2];
+    document.getElementById("color_green").style.backgroundColor = colors[3];
+    document.getElementById("color_blue").style.backgroundColor = colors[4];
+    document.getElementById("color_purple").style.backgroundColor = colors[5];
+    document.getElementById("color_pink").style.backgroundColor = colors[6];
+    
+}
+
+function selectColor(colorId)
+{
+    
+}
+
+function closeColors() 
+{
+
+}
+
 // gets all notes
 function getNotes()
 {
@@ -61,6 +86,9 @@ function createNote(id, content)
 // added new note to html
 function addNote() 
 {
+
+    openColors();
+
     const notes = getNotes();
 
     // sets id to random number
