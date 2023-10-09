@@ -9,8 +9,6 @@ const addNoteButton = notesContainer.querySelector(".add-note");
 getNotes().forEach(note => {
     const noteElement = createNote(note.id, note.content, note.backgroundColor);
 
-    
-
     notesContainer.insertBefore(noteElement, addNoteButton);
 });
 
@@ -123,6 +121,9 @@ function addNote()
         console.log(noteObject.backgroundColor);
 
         notes.push(noteObject);
+
+        console.log(notes);
+
         saveNotes(notes);
         colorIsSelected = null;
     }
@@ -132,12 +133,13 @@ function addNote()
 function updateNote(id, newContent)
 {
     const notes = getNotes();
+    colors = ["#ffffff","#fcacac","#fffead","#a4faa2","#a3fdff","#cfa8ff","#faa0eb"];
 
     // filters the note by id
     const targetNote = notes.filter(note => note.id == id)[0];
 
     targetNote.content = newContent;
-    targetNote.backgroundColor = colorIsSelected;
+    targetNote.backgroundColor = colors[2];
     saveNotes(notes);
 }
 
