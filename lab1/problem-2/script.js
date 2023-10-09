@@ -7,7 +7,9 @@ const addNoteButton = notesContainer.querySelector(".add-note");
 
 // displays to user when called
 getNotes().forEach(note => {
-    const noteElement = createNote(note.id, note.content);
+    const noteElement = createNote(note.id, note.content, note.backgroundColor);
+
+    
 
     notesContainer.insertBefore(noteElement, addNoteButton);
 });
@@ -15,13 +17,18 @@ getNotes().forEach(note => {
 addNoteButton.addEventListener("click", () => addNote());
 
 // array of colors: white, light red, light yellow, light green, light blue, light purple, light pink
-const colors = ["#ffffff","#fcacac","#fffead","#a4faa2","#a3fdff","#cfa8ff","#faa0eb"];
+var colors = ["#ffffff","#fcacac","#fffead","#a4faa2","#a3fdff","#cfa8ff","#faa0eb"];
 
+// color picker menu
 var colorPicker = document.getElementById("color-picker");
+var colorIsSelected;
 
 function openColors() 
 {
+    // shows color picker
     colorPicker.style.display = "block";
+
+    // sets colors
     document.getElementById("color_white").style.backgroundColor = colors[0];
     document.getElementById("color_red").style.backgroundColor = colors[1];
     document.getElementById("color_yellow").style.backgroundColor = colors[2];
@@ -32,14 +39,12 @@ function openColors()
     
 }
 
+// will be called from html and passes corresponding value of color selected
 function selectColor(colorId)
 {
-    
-}
-
-function closeColors() 
-{
-
+    colorIsSelected = colorId;
+    colorPicker.style.display = "none";
+    addNote();
 }
 
 // gets all notes
@@ -55,8 +60,10 @@ function saveNotes(notes)
 }
 
 // Builds new element to represent a new note
-function createNote(id, content) 
+function createNote(id, content, color) 
 {
+    colors = ["#ffffff","#fcacac","#fffead","#a4faa2","#a3fdff","#cfa8ff","#faa0eb"];
+
     // creates a new textarea element
     const element = document.createElement("textarea");
 
@@ -64,6 +71,10 @@ function createNote(id, content)
     element.classList.add("note");
     element.value = content;
     element.placeholder = "Empty note";
+
+    color = colors[colorIsSelected];
+    element.backgroundColor = color;
+    element.style.backgroundColor = colors[colorIsSelected];
 
     // when changed, then call update function
     element.addEventListener("change", () => {
@@ -86,25 +97,35 @@ function createNote(id, content)
 // added new note to html
 function addNote() 
 {
+    if(colorIsSelected == null)
+    {
+        openColors();
+    }
+    else
+    {
+        const notes = getNotes();
 
-    openColors();
+        // sets id to random number
+        const noteObject = {
+            id: Math.floor(Math.random() * 100000),
+            content: "",
+            backgroundColor: ""
+        };
+    
+        // creates new note element
+        const noteElement = createNote(noteObject.id, noteObject.content, noteObject.backgroundColor);
+    
+        // puts note before the add note button
+        notesContainer.insertBefore(noteElement, addNoteButton);
 
-    const notes = getNotes();
+        noteObject.backgroundColor = noteElement.backgroundColor;
 
-    // sets id to random number
-    const noteObject = {
-        id: Math.floor(Math.random() * 100000),
-        content: ""
-    };
+        console.log(noteObject.backgroundColor);
 
-    // creates new note element
-    const noteElement = createNote(noteObject.id, noteObject.content);
-
-    // puts note before the add note button
-    notesContainer.insertBefore(noteElement, addNoteButton);
-
-    notes.push(noteObject);
-    saveNotes(notes);
+        notes.push(noteObject);
+        saveNotes(notes);
+        colorIsSelected = null;
+    }
 }
 
 // editing the note
@@ -116,6 +137,7 @@ function updateNote(id, newContent)
     const targetNote = notes.filter(note => note.id == id)[0];
 
     targetNote.content = newContent;
+    targetNote.backgroundColor = colorIsSelected;
     saveNotes(notes);
 }
 
