@@ -69,9 +69,6 @@ function createNote(id, content, color)
     element.classList.add("note");
     element.value = content;
     element.placeholder = "Empty note";
-
-    color = colors[colorIsSelected];
-    element.backgroundColor = color;
     element.style.backgroundColor = colors[colorIsSelected];
 
     // when changed, then call update function
@@ -111,19 +108,14 @@ function addNote()
         };
     
         // creates new note element
-        const noteElement = createNote(noteObject.id, noteObject.content, noteObject.backgroundColor);
+        const noteElement = createNote(noteObject.id, noteObject.content);
     
         // puts note before the add note button
         notesContainer.insertBefore(noteElement, addNoteButton);
 
         noteObject.backgroundColor = noteElement.backgroundColor;
 
-        console.log(noteObject.backgroundColor);
-
         notes.push(noteObject);
-
-        console.log(notes);
-
         saveNotes(notes);
         colorIsSelected = null;
     }
