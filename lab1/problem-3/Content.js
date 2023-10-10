@@ -13,7 +13,6 @@ let metalPipe_images = [
 window.onload = function() {
     // changes background image
     document.body.style.backgroundImage = `url(${metalPipe_images[Math.floor(Math.random() * metalPipe_images.length)]})`;
-    // document.body.style.backgroundSize = "50%";
 
     // changes all images
     const imgs = document.getElementsByTagName("img");
@@ -63,13 +62,14 @@ window.onload = function() {
     // changes every list item
     const li = document.getElementsByTagName("li");
     for (let i = 0; i < li.length; i++){
-        li[i].innerText = "METAL BALL";
+        li[i].innerText = "METAL PIPE YES";
     }
 
     // changes every div
     const divs = document.getElementsByTagName("div");
     for (let i = 0; i < divs.length; i++){
         divs[i].style.backgroundColor = "transparent";
+        divs[i].style.backgroundImage = "transparent";
     }
 
     // changes every span
@@ -80,15 +80,35 @@ window.onload = function() {
         spans[i].style.textDecoration = "underline";
         spans[i].style.textTransform = "uppercase";
     }
+
+    const title = document.getElementsByTagName("title");
+    for (let i = 0; i < title.length; i++){
+        title[i].innerText = "METAL PIPE |";
+    }
+
+    // changes icons of tabs (sometimes doesn't work)
+    var ListOfLinks = document.getElementsByTagName("link");
+    for (var i = 0; i < ListOfLinks.length; i++)
+    {
+        if((ListOfLinks[i].getAttribute("rel") == "icon")||(ListOfLinks[i].getAttribute("rel") == "shortcut icon")||(ListOfLinks[i].getAttribute("rel") == "apple-touch-icon")||(ListOfLinks[i].getAttribute("rel") == "mask-icon"))
+        {
+            ListOfLinks[i].setAttribute("href", metalPipe_images[Math.floor(Math.random() * metalPipe_images.length)]);
+        }
+    }    
+
+    // adds a video to the page before h1 elements
+    const metalPipe_video = "https://www.youtube.com/embed/Euq7uTeYCP0?autoplay=1&loop=1";
     
+    const iframe = document.createElement("iframe");
+    iframe.src = metalPipe_video;
+    iframe.allow = "autoplay; encrypted-media";
+    iframe.height = "300px";
+    iframe.width = "535px";
+    iframe.style.zIndex = "999";
+    document.body.appendChild(iframe);
 
-
-    const audio = new Audio("metal_pipe.mp3");
-
-    // Add a click event listener to the element you want to trigger the audio
-    const element = document.querySelector("selector");
-    element.addEventListener("click", function() {
-        audio.play();
-    });
+    const h1 = document.getElementsByTagName("h1")[0];
+    h1.parentNode.insertBefore(iframe, h1);
+    
     
 }
