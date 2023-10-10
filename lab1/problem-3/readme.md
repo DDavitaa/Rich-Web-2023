@@ -12,8 +12,10 @@ These are the changes:
 - Made sure to run everything after all initial scripts from the webpages have been loaded.
 - Changed background to just metal pipes.
 - Changed all images to metal pipes.
-- Changed what h1, h2, h3, p, and li says.
-- Changed buttons so they lead to www.metalpipe.com
+- Changed what h1, h2, h3, and li says.
+- Made new array of phrases to randomly generate in p tags.
+- Changed text in all buttons.
+- Changed links so they lead to www.metalpipe.com
 - Changed divs so that they are fully transparent
 - Changed spans so that they are red, bold, underlined, and are forced to be uppercase.
 - Changed title text.
@@ -24,5 +26,5 @@ These are the changes:
 - [Ebay](https://www.ebay.ie/)
 - [Google](https://www.google.ie/)
 - [StackOverflow](https://stackoverflow.com/)
-- [LinkedIn](https://www.linkedin.com/)
+- [LinkedIn](https://www.linkedin.com/) (logged in)
 - Will work on many other sites

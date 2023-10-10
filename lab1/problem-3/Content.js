@@ -10,6 +10,15 @@ let metalPipe_images = [
     "https://www.steelandpipes.com/cdn/shop/files/Pipes_540x540.gif?v=1675360229"
 ];
 
+let metalPipe_phrases = [
+    "METAL PIPE",
+    "METAL PIPE IS MY LIFE",
+    "metal pipe",
+    "metal pipe is cool",
+    "PIPE IS METAL",
+    "METAL IS PIPE",
+]
+
 window.onload = function() {
     // changes background image
     document.body.style.backgroundImage = `url(${metalPipe_images[Math.floor(Math.random() * metalPipe_images.length)]})`;
@@ -42,21 +51,28 @@ window.onload = function() {
     // changes all p
     const p = document.getElementsByTagName("p");
     for (let i = 0; i < p.length; i++){
-        p[i].innerText = "METAL PIPE";
+        p[i].innerText = metalPipe_phrases[Math.floor(Math.random() * metalPipe_phrases.length)];
     }
 
     // changes all buttons
     const buttons = document.getElementsByTagName("button");
     for (let i = 0; i < buttons.length; i++){
         buttons[i].innerText = "PRESS FOR METAL PIPE";
-        buttons[i].style.backgroundImage = `url(${metalPipe_images[Math.floor(Math.random() * metalPipe_images.length)]})`;
-        buttons[i].style.color = "black";
+    }
+
+    // changes all inputs that are submit types
+    const inputs = document.getElementsByTagName("input");
+    for (let i = 0; i < inputs.length; i++){
+        if(inputs[i].type == "submit"){
+            inputs[i].value = "PRESS FOR METAL PIPE";
+        }
     }
 
     // changes every link
     const links = document.getElementsByTagName("a");
     for (let i = 0; i < links.length; i++){
         links[i].href = "https://www.metalpipe.com";
+        links[i].style.background = "none";
     }
 
     // changes every list item
@@ -68,8 +84,9 @@ window.onload = function() {
     // changes every div
     const divs = document.getElementsByTagName("div");
     for (let i = 0; i < divs.length; i++){
-        divs[i].style.backgroundColor = "transparent";
-        divs[i].style.backgroundImage = "transparent";
+        divs[i].style.background = "none";
+        divs[i].style.backgroundColor = "rgba(255,255,255,0)";
+        divs[i].style.backgroundBlendMode = "lighten";
     }
 
     // changes every span
@@ -87,8 +104,8 @@ window.onload = function() {
     }
 
     // changes icons of tabs (sometimes doesn't work)
-    var ListOfLinks = document.getElementsByTagName("link");
-    for (var i = 0; i < ListOfLinks.length; i++)
+    let ListOfLinks = document.getElementsByTagName("link");
+    for (let i = 0; i < ListOfLinks.length; i++)
     {
         if((ListOfLinks[i].getAttribute("rel") == "icon")||(ListOfLinks[i].getAttribute("rel") == "shortcut icon")||(ListOfLinks[i].getAttribute("rel") == "apple-touch-icon")||(ListOfLinks[i].getAttribute("rel") == "mask-icon"))
         {
