@@ -9,20 +9,37 @@
     </head>
     <body>
         <h1>Phone Directory</h1>
-        <hr>
 
-        <form id="addContactForm">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter name">
+        <form>
+            <div class="insideForm">
+                <input type="text" id="name" name="name" placeholder="Contact Name">
+                <input type="text" id="phone" placeholder="Mobile Number">
+                <input type="text" id="email" placeholder="Email">
+                <button type="button">Add</button>
+            </div>
 
-            <label for="phone">Phone</label>
-            <input type="text" id="phone" name="phone" placeholder="Enter phone">
-
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" placeholder="Enter email">
-
-            <input type="submit" value="Add Contact">
+            
         </form>
+
+        <div id="search">
+            <label for="search">Search contact by Mobile No:</label>
+            <input type="text" id="text" name="search">
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                
+            </tbody>
+        </table>
+
+        
 
         <script src="script.js"></script>
     </body>
