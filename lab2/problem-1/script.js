@@ -5,7 +5,7 @@ const errorMessage = document.getElementById('error');
 const noResultMessage = document.getElementById('no_result');
 
 getContacts().forEach(contact => {
-    const newContact = createEl(contact.name, contact.phone, contact.email);
+    const newContact = createEl(contact.id, contact.name, contact.phone, contact.email);
 
     table.appendChild(newContact);
 });
@@ -40,7 +40,7 @@ function validateContact(name, phone, email)
     }
 }
 
-function createEl(name, phone, email)
+function createEl(id, name, phone, email)
 {
     const newRow = document.createElement('tr');
 
@@ -58,6 +58,15 @@ function createEl(name, phone, email)
     newRow.appendChild(phoneData);
     newRow.appendChild(emailData);
 
+    newRow.addEventListener('dblclick', () => {
+        const doDelete = confirm("Are you sure you want to delete this contact?");
+
+        if(doDelete)
+        {
+            deleteContact(id,newRow);
+        }
+    });
+
     return newRow;
 }
 
@@ -72,7 +81,7 @@ function addContact(name, phone, email)
         email: ""
     };
 
-    const newContact = createEl(name, phone, email);
+    const newContact = createEl(contactObj.id, name, phone, email);
 
     table.appendChild(newContact);
 
@@ -85,6 +94,13 @@ function addContact(name, phone, email)
     console.log(getContacts());
 }
 
+function deleteContact(id, element)
+{
+    const contacts = getContacts().filter(contact => contact.id != id);
+
+    saveContacts(contacts);
+    table.removeChild(element);
+}
 
 form.addEventListener('submit', function(event) {
     event.preventDefault();
