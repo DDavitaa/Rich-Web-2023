@@ -1,18 +1,29 @@
+// ----------------------------------------------
+// FORM AND TABLE
+
 // constant variables
 const form = document.getElementById('phone_dir_form');
 const table = document.getElementById('tableBody');
 const errorMessage = document.getElementById('error');
 
+
+
 getContacts().forEach(contact => {
     const newContact = createEl(contact.id, contact.name, contact.phone, contact.email);
 
     table.appendChild(newContact);
+
+    oddNumberColoured();
 });
 
 function getContacts()
 {
+    oddNumberColoured();
+    
     return JSON.parse(localStorage.getItem("phoneDir_app") || "[]");
 }
+
+
 
 function saveContacts(contacts) 
 {
@@ -120,6 +131,68 @@ form.addEventListener('submit', function(event) {
 });
 
 // ----------------------------------------------
+// SORT BY NAME
+
+const sortName = document.getElementById('sort_name');
+let ascdesc = 0;
+
+sortName.addEventListener('click', () => {
+    
+    const contacts = getContacts();
+    
+    if (ascdesc == 0) 
+    {
+        contacts.sort((a,b) => {
+            if(a.name > b.name)
+            {
+                ascdesc = 1;
+                return 1;
+            }
+            else if(a.name < b.name)
+            {
+                ascdesc = 1;
+                return -1;
+            }
+            else
+            {
+                ascdesc = 1;
+                return 0;
+            }
+        });
+    }
+    else
+    {
+        contacts.sort((b,a) => {
+            if(b.name > a.name)
+            {
+                ascdesc = 0;
+                return -1;
+            }
+            else if(b.name < a.name)
+            {
+                ascdesc = 0;
+                return 1;
+            }
+            else
+            {
+                ascdesc = 0;
+                return 0;
+            }
+        });
+    }
+    
+
+    table.innerHTML = "";
+
+    contacts.forEach(contact => {
+        const newContact = createEl(contact.id, contact.name, contact.phone, contact.email);
+    
+        table.appendChild(newContact);
+    });
+});
+
+// ----------------------------------------------
+// SEARCH BY MOBILE NUMBER
 
 const noResultMessage = document.getElementById('no_result');
 const searchByNo = document.getElementById('search_by_no');
@@ -150,3 +223,5 @@ function searchPhone()
         table.appendChild(newContact);
     });
 }
+
+// ----------------------------------------------
