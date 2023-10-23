@@ -113,6 +113,10 @@ form.addEventListener('submit', function(event) {
     let phone = phoneInput.value;
     let email = emailInput.value;
 
+    nameInput.value = "";
+    phoneInput.value = "";
+    emailInput.value = "";
+
     validateContact(name, phone, email);
     
 });
