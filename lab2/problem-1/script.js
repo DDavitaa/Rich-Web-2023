@@ -5,17 +5,19 @@ const errorMessage = document.getElementById('error');
 const noResultMessage = document.getElementById('no_result');
 
 getContacts().forEach(contact => {
-    const rowContact = createNote(contact.id, contact.name, contact.phone, contact.email);
+    const newContact = createEl(contact.name, contact.phone, contact.email);
+
+    table.appendChild(newContact);
 });
 
 function getContacts()
 {
-    return JSON.parse(localStorage.getItem("note-phoneDir_app") || "[]");
+    return JSON.parse(localStorage.getItem("phoneDir_app") || "[]");
 }
 
-function saveContacts(notes) 
+function saveContacts(contacts) 
 {
-    localStorage.setItem("phoneDir_app", JSON.stringify(notes));
+    localStorage.setItem("phoneDir_app", JSON.stringify(contacts));
 }
 
 function validateContact(name, phone, email)
@@ -30,6 +32,7 @@ function validateContact(name, phone, email)
     {
         errorMessage.style.display = "none";
         console.log("valid");
+        addContact(name, phone, email);
     }
     else
     {
@@ -37,33 +40,30 @@ function validateContact(name, phone, email)
     }
 }
 
-function createContact(id, name, phone, email)
+function createEl(name, phone, email)
 {
-    var newRow = document.createElement('tr');
+    const newRow = document.createElement('tr');
 
-    // Create new table data elements for each contact property
-    var idData = document.createElement('td');
-    idData.textContent = id;
-    var nameData = document.createElement('td');
+    let nameData = document.createElement('td');
     nameData.textContent = name;
-    var phoneData = document.createElement('td');
-    phoneData.textContent = phone;
-    var emailData = document.createElement('td');
-    emailData.textContent = email;
 
-    // Append the table data elements to the new row element
-    newRow.appendChild(idData);
+    let phoneData = document.createElement('td');
+    phoneData.textContent = phone;
+
+    let emailData = document.createElement('td');
+    emailData.textContent = email;
+    
+    // append the table data elements to the new row element
     newRow.appendChild(nameData);
     newRow.appendChild(phoneData);
     newRow.appendChild(emailData);
 
-    // Append the new row element to the contacts table body element
-    tableBody.appendChild(newRow);
+    return newRow;
 }
 
-function addContact()
+function addContact(name, phone, email)
 {
-    const contact = getContacts();
+    const contacts = getContacts();
 
     const contactObj = {
         id: Math.floor(Math.random() * 100000),
@@ -72,7 +72,17 @@ function addContact()
         email: ""
     };
 
-    createContact(contactObj.id, contactObj.name, contactObj.phone, contactObj.email);
+    const newContact = createEl(name, phone, email);
+
+    table.appendChild(newContact);
+
+    contactObj.name = name;
+    contactObj.phone = phone;
+    contactObj.email = email;
+    
+    contacts.push(contactObj);
+    saveContacts(contacts);
+    console.log(getContacts());
 }
 
 
