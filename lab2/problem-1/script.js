@@ -2,7 +2,6 @@
 const form = document.getElementById('phone_dir_form');
 const table = document.getElementById('tableBody');
 const errorMessage = document.getElementById('error');
-const noResultMessage = document.getElementById('no_result');
 
 getContacts().forEach(contact => {
     const newContact = createEl(contact.id, contact.name, contact.phone, contact.email);
@@ -53,7 +52,6 @@ function createEl(id, name, phone, email)
     let emailData = document.createElement('td');
     emailData.textContent = email;
     
-    // append the table data elements to the new row element
     newRow.appendChild(nameData);
     newRow.appendChild(phoneData);
     newRow.appendChild(emailData);
@@ -120,3 +118,35 @@ form.addEventListener('submit', function(event) {
     validateContact(name, phone, email);
     
 });
+
+// ----------------------------------------------
+
+const noResultMessage = document.getElementById('no_result');
+const searchByNo = document.getElementById('search_by_no');
+
+
+function searchPhone()
+{
+    const number = searchByNo.value;
+
+    const contacts = getContacts();
+
+    const targetContact = contacts.filter(contact => contact.phone.startsWith(number));
+
+    if(targetContact.length == 0)
+    {
+        noResultMessage.style.display = "block";
+    }
+    else
+    {
+        noResultMessage.style.display = "none";
+    }
+
+    table.innerHTML = "";
+
+    targetContact.forEach(contact => {
+        const newContact = createEl(contact.id, contact.name, contact.phone, contact.email);
+    
+        table.appendChild(newContact);
+    });
+}

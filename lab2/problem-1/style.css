@@ -50,3 +50,10 @@ td, th {
     padding: 5px;
     width: 140px;
 }
+
+#no_result {
+    display: none;
+    text-align: center;
+    color: red;
+    margin-top: 10px;
+}
