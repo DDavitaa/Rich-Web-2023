@@ -34,7 +34,7 @@ function validateContact(name, phone, email)
 {
     const patterName = /^[A-Za-z ]{1,20}$/;
     const patternPhone = /^[0-9]{10}$/;
-    const patternEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{1,40}$/
+    const patternEmail = /^(?!.{41})[a-z0-9]+(?:\.[a-z0-9]+)*@[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-zA-Z]{2,6}$/
 
     console.log(name, phone, email);
 
