@@ -225,3 +225,13 @@ function searchPhone()
 }
 
 // ----------------------------------------------
+// COLOUR ODD ROWS
+function oddNumberColoured()
+{
+    const rows = document.querySelectorAll('tr');
+    rows.forEach((row, index) => {
+        if (index % 2 !== 0) {
+            row.style.backgroundColor = '#f2f2f2';
+        }
+    });
+}
