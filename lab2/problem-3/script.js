@@ -49,16 +49,28 @@ function validateUserData(userdata)
     }
 }
 
+function runSearch(username)
+{
+    getUserData(username)
+    .then(userdata => {
+        validateUserData(userdata);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
 btn.addEventListener('click', () => {
     const username = input.value;
     
-    getUserData(username)
-        .then(userdata => {
-            validateUserData(userdata);
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    runSearch(username);
+});
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        btn.click();
+    }
 });
 
 // getUserData('mojombo')
