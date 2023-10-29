@@ -1,5 +1,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
 }
 
 #container {
@@ -7,13 +8,20 @@ body {
     margin: 0 auto;
 }
 
-#usernameInput {
+#searchInput {
     width: 520px;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
-#search {
-    font-size: 1.2em;
+#searchBtn {
+    font-size: 1em;
+}
+
+#error {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    display: none;
 }
 
 #display {
@@ -23,12 +31,12 @@ body {
 }
 
 #profileBox {
-    width: 300px;
+    width: 400px;
     text-align: left;
 }
 
 #reposBox {
-    width: 300px;
+    width: 400px;
     text-align: left;
 }
 
@@ -37,8 +45,6 @@ h3 {
 }
 
 #profileContent {
-    border: solid 1px black;
-    height: 200px;
     width: auto;
 }
 
@@ -46,4 +52,22 @@ h3 {
     border: solid 1px black;
     height: 200px;
     width: auto;
+}
+
+#profileImage {
+    height: 250px;
+    text-align: center;
+}
+
+
+#pImage {
+    width: 250px;
+    aspect-ratio: 1/1;
+    border: none;
+}
+
+.profileDetail {
+    border: solid 1px black;
+    padding: 10px;
+    margin-top: -1px;
 }

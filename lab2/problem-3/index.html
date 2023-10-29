@@ -10,22 +10,22 @@
         
         <div id="container">
             <form>
-                <input type="text" id="usernameInput" placeholder="Username">
-                <button type="button" id="search">Search</button>
+                <input type="text" id="searchInput" placeholder="Username">
+                <button type="button" id="searchBtn">Search</button>
+                <p id="error">User not found</p>
             </form>
                 
             <div id="display">
                 <div id="profileBox">
                     <h3>User Profile</h3>
                     <div id="profileContent">
-                        <div id="profileImage"></div>
-                        <div id="profileName"></div>
-                        <div id="profileUsername"></div>
-                        <div id="profileEmail"></div>
-                        <div id="profileLocation"></div>
-                        <div id="profileGists"></div>
+                        <div class="profileDetail" id="profileImage"><img id="pImage"/></div>
+                        <div class="profileDetail">Name <div class="pResult" id="pName"></div></div>
+                        <div class="profileDetail">Username <div class="pResult" id="pUsername"></div></div>
+                        <div class="profileDetail">Email <div class="pResult" id="pEmail"></div></div>
+                        <div class="profileDetail">Location <div class="pResult" id="pLoc"></div></div>
+                        <div class="profileDetail">Number of Gists <div class="pResult" id="pGists"></div></div>
                     </div>
-
                 </div>
 
                 <div id="reposBox">
