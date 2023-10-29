@@ -25,10 +25,46 @@ async function getUserData(username)
     };
 }
 
-getUserData('mojombo')
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => {
-        console.error(error);
-    });
+function validateUserData(userdata)
+{
+    if(userdata.username == null)
+    {
+        pImage.src = "";
+        pName.innerHTML = "";
+        pUsername.innerHTML = "";
+        pEmail.innerHTML = "";
+        pLoc.innerHTML = "";
+        pGists.innerHTML = "";
+        error.style.display = 'block';
+    }
+    else
+    {
+        pImage.src = userdata.avatar;
+        pName.innerHTML = userdata.name;
+        pUsername.innerHTML = userdata.username;
+        pEmail.innerHTML = userdata.email;
+        pLoc.innerHTML = userdata.location;
+        pGists.innerHTML = userdata.gists;
+        error.style.display = 'none';
+    }
+}
+
+btn.addEventListener('click', () => {
+    const username = input.value;
+    
+    getUserData(username)
+        .then(userdata => {
+            validateUserData(userdata);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+});
+
+// getUserData('mojombo')
+//     .then(data => {
+//         console.log(data);
+//     })
+//     .catch(error => {
+//         console.error(error);
+//     });
