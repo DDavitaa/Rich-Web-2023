@@ -29,7 +29,8 @@ async function getRepoData(username)
 {
     const response = await fetch(`https://api.github.com/users/${username}/repos`);
     const repodata = await response.json();
-    return repodata;
+    const repoNames = repodata.map(repo => ({ name: repo.name, description: repo.description }));
+    return repoNames;
 }
 
 function validateUserData(userdata)
@@ -63,15 +64,15 @@ function runSearch(username)
     getUserData(username)
     .then(userdata => {
         const validation = validateUserData(userdata);
-        
+
         if(validation == 1)
         {
             getRepoData(username)
-            .then(repodata => {
-                console.log(repodata);
+            .then(reponames => {
+                console.log(reponames);
             })
-            .catch(error => {
-                console.error(error);
+            .catch(error2 => {
+                console.error(error2);
             });
         }
         else
