@@ -176,6 +176,7 @@ function runSearch(username)
 // event listener for search button
 btn.addEventListener('click', () => {
     const username = input.value;
+    input.value = "";
     
     runSearch(username);
 });
