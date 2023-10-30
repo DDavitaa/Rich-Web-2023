@@ -25,6 +25,13 @@ async function getUserData(username)
     };
 }
 
+async function getRepoData(username)
+{
+    const response = await fetch(`https://api.github.com/users/${username}/repos`);
+    const repodata = await response.json();
+    return repodata;
+}
+
 function validateUserData(userdata)
 {
     if(userdata.username == null)
@@ -36,6 +43,7 @@ function validateUserData(userdata)
         pLoc.innerHTML = "";
         pGists.innerHTML = "";
         error.style.display = 'block';
+        return 0;
     }
     else
     {
@@ -46,6 +54,7 @@ function validateUserData(userdata)
         pLoc.innerHTML = userdata.location;
         pGists.innerHTML = userdata.gists;
         error.style.display = 'none';
+        return 1;
     }
 }
 
@@ -53,7 +62,23 @@ function runSearch(username)
 {
     getUserData(username)
     .then(userdata => {
-        validateUserData(userdata);
+        const validation = validateUserData(userdata);
+        
+        if(validation == 1)
+        {
+            getRepoData(username)
+            .then(repodata => {
+                console.log(repodata);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
+        else
+        {
+
+        }
+        
     })
     .catch(error => {
         console.error(error);
