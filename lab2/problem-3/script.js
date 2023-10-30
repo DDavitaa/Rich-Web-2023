@@ -1,4 +1,9 @@
 
+// getting elements
+const input = document.getElementById('searchInput');
+const btn = document.getElementById('searchBtn');
+const error = document.getElementById('error');
+
 const pImage = document.getElementById('pImage');
 const pName = document.getElementById('pName');
 const pUsername = document.getElementById('pUsername');
@@ -6,10 +11,60 @@ const pEmail = document.getElementById('pEmail');
 const pLoc = document.getElementById('pLoc');
 const pGists = document.getElementById('pGists');
 
-const input = document.getElementById('searchInput');
-const btn = document.getElementById('searchBtn');
-const error = document.getElementById('error');
+const reposContent = document.getElementById('reposContent');
 
+var repoTemplateShow = 1;
+repoTemplate();
+
+// repo list template
+function repoTemplate(nameRepo,descRepo)
+{
+    const repo = document.createElement('div');
+    repo.setAttribute('class', 'repo');
+    
+    const repoDetail1 = document.createElement('div');
+    repoDetail1.setAttribute('class', 'repoDetail');
+    
+    const repoDetail2 = document.createElement('div');
+    repoDetail2.setAttribute('class', 'repoDetail');
+    
+    const repoName = document.createElement('div');
+    repoName.setAttribute('id', 'rName');
+
+    if(nameRepo != null)
+    {
+        repoName.innerHTML = nameRepo;
+    }
+    
+    const repoDesc = document.createElement('div');
+    repoDesc.setAttribute('id', 'rDesc');
+    if(repoTemplateShow == 1)
+    {
+        repoTemplateShow = 0;
+    }
+    else
+    {
+        repoDesc.innerHTML = descRepo;
+    }
+    
+    
+    repo.appendChild(repoDetail1);
+    repoDetail1.innerHTML = "Name: ";
+    repoDetail1.appendChild(repoName);
+    if(nameRepo == null)
+    {
+        const br = document.createElement('br');
+        repoDetail1.appendChild(br);
+    }
+    repo.appendChild(repoDetail2);
+    repoDetail2.innerHTML = "Description: ";
+    repoDetail2.appendChild(repoDesc);
+    
+    reposContent.appendChild(repo);
+}
+
+
+// function to get user data
 async function getUserData(username) 
 {
     const response = await fetch(`https://api.github.com/users/${username}`);
@@ -21,16 +76,8 @@ async function getUserData(username)
         username: login,
         email: email || 'N/A',
         location: location || 'N/A',
-        gists: public_gists
+        gists: public_gists || 'N/A'
     };
-}
-
-async function getRepoData(username)
-{
-    const response = await fetch(`https://api.github.com/users/${username}/repos`);
-    const repodata = await response.json();
-    const repoNames = repodata.map(repo => ({ name: repo.name, description: repo.description }));
-    return repoNames;
 }
 
 function validateUserData(userdata)
@@ -59,25 +106,42 @@ function validateUserData(userdata)
     }
 }
 
+async function getRepoData(username)
+{
+    const response = await fetch(`https://api.github.com/users/${username}/repos`);
+    const repodata = await response.json();
+    const repos = repodata.map(repo => ({ name: repo.name, description: repo.description || 'N/A'}));
+    return repos;
+}
+
+function repoList(repos)
+{
+    reposContent.innerHTML = "";
+
+    repos.forEach(repoblock => {
+        repoTemplate(repoblock.name, repoblock.description);
+    });
+}
+
 function runSearch(username)
 {
     getUserData(username)
     .then(userdata => {
         const validation = validateUserData(userdata);
 
-        if(validation == 1)
+        if(validation == 0)
+        {
+            
+        }
+        else
         {
             getRepoData(username)
-            .then(reponames => {
-                console.log(reponames);
+            .then(repos => {
+                repoList(repos);
             })
             .catch(error2 => {
                 console.error(error2);
             });
-        }
-        else
-        {
-
         }
         
     })
