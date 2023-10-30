@@ -70,8 +70,9 @@ h3 {
 }
 
 #reposContent {
-    height: 400px;
+    height: 550px;
     width: auto;
+    padding-top: 1px;
 }
 
 .repo {

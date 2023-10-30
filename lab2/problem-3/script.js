@@ -116,11 +116,25 @@ async function getRepoData(username)
 
 function repoList(repos)
 {
+    var repoCount = 0;
+
     reposContent.innerHTML = "";
 
     repos.forEach(repoblock => {
         repoTemplate(repoblock.name, repoblock.description);
+        repoCount++;
     });
+
+    if(repoCount > 5)
+    {
+        reposContent.style.overflowX = "hidden";
+        reposContent.style.overflowY = "scroll";
+    }
+    else
+    {
+        reposContent.style.overflowX = "visible";
+        reposContent.style.overflowY = "visible";
+    }
 }
 
 function runSearch(username)
