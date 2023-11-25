@@ -21,6 +21,7 @@ const isPaused$ = new rxjs.BehaviorSubject(false);
 let elapsedSeconds = 0;
 
 pauseResume$.subscribe(() => {
+    pause_resume_btn.innerHTML = isPaused$.value ? "&#9612;&#9612; PAUSE" : "&#9658; RESUME";
     isPaused$.next(!isPaused$.value);
 });
 
