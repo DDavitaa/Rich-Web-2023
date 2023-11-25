@@ -113,3 +113,9 @@ button:active {
 #pause_resume {
     margin-top: 20px;
 }
+
+#alarm {
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+}
