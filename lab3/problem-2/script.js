@@ -37,6 +37,7 @@ pauseResume$.subscribe(() => {
 
 // variables to keep track of the elapsed time and whether the timer is running
 let isRunning = false;
+let elapsedSeconds = 0;
 
 // subscribe to start$ to start the timer
 start$.pipe(
@@ -48,12 +49,18 @@ start$.pipe(
     // switchMap to a new observable that emits the remaining seconds
     rxjs.switchMap(() => {
         elapsedSeconds = 0;
+
+        // create observables from the input fields
         const sec$ = rxjs.fromEvent(sec_input, "input").pipe(
+            // if the timer is running, ignore the input event 
             rxjs.filter(() => !isRunning),
+            // convert the value of the input field to number
             rxjs.map(event => Number(event.target.value)),
+            // start with the current value of the input field
             rxjs.startWith(sec_input.value ? Number(sec_input.value) : 0)
         );
 
+        // same as above except it subscribes to the sec$ observable
         const min$ = sec$.pipe(
             rxjs.switchMap(() => rxjs.fromEvent(min_input, "input").pipe(
                 rxjs.filter(() => !isRunning),
@@ -62,6 +69,7 @@ start$.pipe(
             ))
         );
 
+        // same as above except it subscribes to the min$ observable
         const hour$ = min$.pipe(
             rxjs.switchMap(() => rxjs.fromEvent(hour_input, "input").pipe(
                 rxjs.filter(() => !isRunning),
@@ -70,52 +78,67 @@ start$.pipe(
             ))
         );
 
+        // combine the three observables into one
         const countdownTime$ = rxjs.combineLatest([hour$, min$, sec$]).pipe(
             rxjs.map(([hours, minutes, seconds]) => hours * 3600 + minutes * 60 + seconds + 1)
         );
 
+        // create an observable that emits every second
         const countdown$ = countdownTime$.pipe(
             rxjs.switchMap(totalSeconds => {
+                // return an observable that emits the remaining seconds
                 return rxjs.interval(1000).pipe(
+                    // start with the total seconds
                     rxjs.startWith(totalSeconds),
+                    // if the timer is paused, ignore the interval event
                     rxjs.filter(() => !isPaused$.value),
+                    // map the interval event to the remaining seconds
                     rxjs.map(i => {
                         elapsedSeconds++;
                         return totalSeconds - elapsedSeconds;
                     }),
+                    // take the first totalSeconds number of events
                     rxjs.take(totalSeconds),
+                    // takeUntil the start$ event
                     rxjs.takeUntil(start$)
                 );
             })
         );
-
+        
+        // return the countdown$ observable
         return countdown$;
-    })
-).subscribe(remainingSeconds => {
-    //if (remainingSeconds <= 0) {
-    //    isRunning = false;
-    //}
+        
+    }))
+    // subscribe to the countdown$ observable
+    .subscribe(remainingSeconds => {
+        // convert the remaining seconds to hours, minutes and seconds
+        const hours = Math.floor(remainingSeconds / 3600);
+        const minutes = Math.floor((remainingSeconds % 3600) / 60);
+        const seconds = remainingSeconds % 60;
 
-    const hours = Math.floor(remainingSeconds / 3600);
-    const minutes = Math.floor((remainingSeconds % 3600) / 60);
-    const seconds = remainingSeconds % 60;
+        // display 0 in front of the number if it is less than 10
+        const hours_show = hours < 10 ? `0${hours}` : `${hours}`;
+        const mins_show = minutes < 10 ? `0${minutes}` : `${minutes}`;
+        const secs_show = seconds < 10 ? `0${seconds}` : `${seconds}`;
 
-    const hours_show = hours < 10 ? `0${hours}` : `${hours}`;
-    const mins_show = minutes < 10 ? `0${minutes}` : `${minutes}`;
-    const secs_show = seconds < 10 ? `0${seconds}` : `${seconds}`;
+        // display the time
+        countdown.innerHTML = `${hours_show}:${mins_show}:${secs_show}`;
 
-    countdown.innerHTML = `${hours_show}:${mins_show}:${secs_show}`;
-
-    if (remainingSeconds <= 0) {
-        video.style.display = "block";
-        player.playVideo();
+        // if the remaining seconds is 0, display the video and play it
+        if (remainingSeconds <= 0) {
+            video.style.display = "block";
+            player.playVideo();
+        }
+        else { // otherwise, hide the video
+            video.style.display = "none";
+        }
     }
-    else {
-        video.style.display = "none";
-    }
-});
+);
 
+// create a variable
 let player;
+
+// function to create a YouTube player
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('youtube_video', {
         events: {
@@ -124,6 +147,7 @@ function onYouTubeIframeAPIReady() {
     });
 }
 
+// function that is called when the player is ready
 function onPlayerReady(event) {
 
 }
