@@ -8,6 +8,15 @@ const pause_resume_btn = document.getElementById("pause_resume");
 
 const countdown = document.getElementById("countdown");
 
+const inputs = [hour_input, min_input, sec_input];
+
+// prevents entry of - and . in the input fields
+inputs.forEach(input => {
+    rxjs.fromEvent(input, 'input').subscribe((event) => {
+        event.target.value = event.target.value.replace(/[-.]/g, '');
+    });
+});
+
 const hour$ = rxjs.fromEvent(hour_input, "input").pipe(
     rxjs.map(event => Number(event.target.value))
 );
@@ -26,6 +35,7 @@ const countdownTimeInSeconds = 300;
 const seconds$ = rxjs.interval(1000).pipe(
     rxjs.map(i => countdownTimeInSeconds - i),
     rxjs.take(countdownTimeInSeconds + 1)
+    //rxjs.takeUntil(pause_resume$)
 );
 
 const minutes$ = seconds$.pipe(
@@ -35,6 +45,8 @@ const minutes$ = seconds$.pipe(
 const hours$ = minutes$.pipe(
     rxjs.map(minutes => Math.floor(minutes / 60))
 );
+
+
 
 hours$.subscribe(hours => {
     const hours_show = hours < 10 ? `0${hours}` : `${hours}`;
