@@ -45,43 +45,60 @@ input$.subscribe((value) => {
             doCreate = true;
         }
     }
-    else {
+    else { // if there are notes in the array
+        // hide error
         error.style.display = "none";
 
+        // boolean to keep track of whether the value in the input field is found in the notes array
         let found = false;
+
+        // check if the value in the input field is found in the notes array
         for(let i = 0; i < notes.length; i++) {
+            // if the value in the input field is found in the notes array, found is true and break out of the loop
             if(value == notes[i].id || value == "") {
                 found = true;
                 break;
             }
         }
 
+        // if found is true, hide error and allow create note
         if (found) {
             error2.style.display = "none";
             doCreate = true;
-        } else {
+        } else { // if found is false, display parent does not exist error and don't allow create note
             error2.style.display = "block";
             doCreate = false;
         }
     }
 });
 
+// subscribe to create$
 create$.subscribe(() => {
-
+    // if there is a value in the input field, convert it to a number, if not, set it to null
     const number = input.value ? parseInt(input.value) : null;
-    let newNote;
-    newNote = new Note(id, number);
+
+    // create new note object and assign parentID to number if there is one, otherwise assign it to null
+    const newNote= new Note(id, number);
+
+    // add new note to notes array
     notes.push(newNote);
-    console.log(notes);
+    
+    // function to create note in the DOM
     createNote(newNote, number)
+
+    // increment id
     id+=1;
     
 });
 
+// function to create note in the DOM
 function createNote(newNote, number) {
+    // create div element to hold note
     const divNote = document.createElement("div");
     divNote.id = newNote.id;
     divNote.classList.add("note");
+
+    // create p element to display note id and parent id
     const pNote = document.createElement("p");
     if (number) {
         pNote.innerHTML = `Note #${newNote.id}, child of Note #${newNote.parentID}`;
@@ -89,54 +106,65 @@ function createNote(newNote, number) {
     else {
         pNote.innerHTML = `Note #${newNote.id}`;
     }
+
+    // create delete button
     const deleteNote = document.createElement("button");
     deleteNote.classList.add("delete_note");
     deleteNote.innerHTML = "Delete";
 
+    // create observable from click event
     const deleteButton$ = rxjs.fromEvent(deleteNote, 'click').pipe(
+        // get the id of the note to be deleted
         rxjs.map(() => newNote.id)
     );
 
+    // add delete button to deleteButtons$ subject
     deleteButtons$.next(deleteButton$);
 
+    // append elements to divNote
     divNote.appendChild(pNote);
     divNote.appendChild(deleteNote);
+
+    // append divNote to list_notes
     list_notes.appendChild(divNote);
 }
 
+// merge all observables from deleteButtons$ subject
 const delete$ = deleteButtons$.pipe(
     rxjs.mergeAll()
 );
 
-
+// subscribe to delete$
 delete$.subscribe(id => {
-    console.log(`Deleting note with id: ${id}`);
     deleteNoteAndDescendants(id);
 });
 
 function deleteNoteAndDescendants(id) {
-    // Find and delete the note with the given id
+    // find the note to be deleted
     const noteIndex = notes.findIndex(note => note.id === id);
+
+    // if the note is found, delete it and remove it from the DOM
     if (noteIndex !== -1) {
+        // Remove the note from the notes array
         notes.splice(noteIndex, 1);
+
+        // Remove the note from the DOM
         const element = document.getElementById(id);
         if (element) {
             element.remove();
-        } else {
-            console.log(`Element with id: ${id} not found in the DOM.`);
         }
-    } else {
-        console.log(`Note with id: ${id} not found in the notes array.`);
     }
 
-    // Find any notes that have the deleted note as their parent
+    // find the child notes of the note to be deleted
     const childNotes = notes.filter(note => note.parentID === id);
+
+    // recursively delete the child notes and their descendants
     childNotes.forEach(childNote => {
-        // Recursively delete the child note and its descendants
         deleteNoteAndDescendants(childNote.id);
     });
 }
 
+// note class
 class Note {
     constructor(id, parentID) {
         this.id = id;
