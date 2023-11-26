@@ -2,6 +2,7 @@
 const input = document.querySelector("input");
 const create_btn = document.getElementById("create_note");
 const error = document.getElementById("error");
+const error2 = document.getElementById("error2");
 const list_notes = document.getElementById("list_notes");
 const note = document.getElementsByClassName("note");
 const delete_btn = document.getElementsByClassName("delete_note");
@@ -10,7 +11,11 @@ const input$ = rxjs.fromEvent(input, "input").pipe(
     rxjs.map(event => event.target.value)
 );
 
-const create$ = rxjs.fromEvent(create_btn, "click");
+let doCreate = true;
+
+const create$ = rxjs.fromEvent(create_btn, "click").pipe(
+    rxjs.filter(() => doCreate)   
+);
 //const delete$ = rxjs.fromEvent(delete_btn, "click");
 const delete$ = rxjs.fromEvent(delete_btn, "click").pipe(
     rxjs.map(event => event.target.id)
@@ -19,26 +24,48 @@ const delete$ = rxjs.fromEvent(delete_btn, "click").pipe(
 let notes = [];
 let id = 1;
 
-
-create$.subscribe(() => {
-
-    const number = parseInt(input.value);
-    let newNote;
+input$.subscribe((value) => {
     if(id == 1) {
-        if (number) {
+        if (value) {
             error.style.display = "block";
+            doCreate = false;
         }
-        else {
-            newNote = new Note(id, number);
-            createNote(newNote, number)
-            id+=1;
+        else if(!value) {
+            error.style.display = "none";
+            doCreate = true;
         }
     }
     else {
-        newNote = new Note(id, number);
-        createNote(newNote, number)
-        id+=1;
+        error.style.display = "none";
+
+        let found = false;
+        for(let i = 0; i < notes.length; i++) {
+            console.log(notes[i].id);
+            if(value == notes[i].id || value == "") {
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            error2.style.display = "none";
+            doCreate = true;
+        } else {
+            error2.style.display = "block";
+            doCreate = false;
+        }
     }
+});
+
+create$.subscribe(() => {
+
+    const number = input.value ? parseInt(input.value) : null;
+    let newNote;
+    newNote = new Note(id, number);
+    notes.push(newNote);
+    console.log(notes);
+    createNote(newNote, number)
+    id+=1;
     
 });
 

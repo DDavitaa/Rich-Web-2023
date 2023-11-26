@@ -13,6 +13,10 @@
             display: none;
             color: red;
         }
+        #error2 {
+            display: none;
+            color: red;
+        }
         #list_notes {
             display: flex;
             flex-wrap: wrap;
@@ -20,7 +24,7 @@
             margin-top: 10px;
         }
         .note {
-            flex-basis: calc(100% / 8);
+            flex-basis: calc(100% / 6);
             border: 2px solid black;
             width: 200px;
             padding: 10px;
@@ -38,6 +42,7 @@
         <input type="number" id="note_input" placeholder="Enter parent number">
         <button id="create_note">Create Note</button>
         <p id="error">Cannot assign parent to first note.</p>
+        <p id="error2">Parent note doesn't exist.</p>
 
         <div id="list_notes">
 
