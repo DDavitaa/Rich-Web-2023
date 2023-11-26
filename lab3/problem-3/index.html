@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        #list_notes {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .note {
+            border: 2px solid black;
+            width: 200px;
+            padding: 10px;
+            padding-top: -10px;
+            margin: 10px;
+        }
+    </style>
+    
+    <title>Problem 3</title>
+</head>
+    <body>
+        <h1>Note Manager</h1>
+
+        <input type="number" id="note_input" placeholder="Enter parent number">
+        <button id="create_note">Create Note</button>
+
+        <div id="list_notes">
+            
+            <div class="note">
+                <p>Note #1</p>
+                <button class="delete_note">Delete</button>
+            </div>
+
+            <div class="note">
+                <p>Note #2, child of Note #1</p>
+                <button class="delete_note">Delete</button>
+            </div>
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.8.1/rxjs.umd.min.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
