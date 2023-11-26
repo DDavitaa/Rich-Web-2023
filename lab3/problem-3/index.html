@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
+        body {
+            font-family:'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+        }
+        #error {
+            display: none;
+            color: red;
+        }
         #list_notes {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             margin-top: 10px;
         }
         .note {
+            flex-basis: calc(100% / 8);
             border: 2px solid black;
             width: 200px;
             padding: 10px;
@@ -26,20 +34,12 @@
     <body>
         <h1>Note Manager</h1>
 
+        
         <input type="number" id="note_input" placeholder="Enter parent number">
         <button id="create_note">Create Note</button>
+        <p id="error">Cannot assign parent to first note.</p>
 
         <div id="list_notes">
-            
-            <div class="note">
-                <p>Note #1</p>
-                <button class="delete_note">Delete</button>
-            </div>
-
-            <div class="note">
-                <p>Note #2, child of Note #1</p>
-                <button class="delete_note">Delete</button>
-            </div>
 
         </div>
 
