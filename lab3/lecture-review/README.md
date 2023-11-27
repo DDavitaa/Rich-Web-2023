@@ -9,6 +9,7 @@ The observer pattern is a software design pattern in which an object, called the
 Streams are useful for modeling asynchronous or event-based operations. They can represent anything from button clicks, mouse movements, and other user interactions to data coming in from a network request.  
 In Rich Web development, you might use streams to handle user interactions, real-time data, or sequences of asynchronous operations. For example, you might use a stream to represent the user's mouse movements and then subscribe to this stream to update the UI in response to these movements.   
 <br>
+
 2. **Assume that you are building an interface to an API in your Rich Web App. Describe in
 detail how you could use the RxJS library to handle asynchronous network responses to
 API requests. In your opinion, what are the benefits to using a streams library for
@@ -25,6 +26,7 @@ networking over, say, promises? And what do you think are the downsides?**
     - Sometimes RxJS may be overkill for simple cases. If you're only dealing with a single asynchronous operation that doesn't need to be cancelled or transformed, using promises might be more straightforward.
     - Errors need to be handled in each subscription, whereas with promises, they can be handled in a single catch block.  
 <br>
+
 3. **Consider three asynchronous tasks, A,B & C. What are the consequences of these
 functions sharing global state? What is a good practice to alleviate any problems
 associated with this?**  
