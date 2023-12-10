@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Note from './Note.js';
 import ColorPicker from './ColorPicker.js';
+import Jokes from './Jokes.js';
 
 // App component
 const App = () => {
@@ -40,12 +41,15 @@ const App = () => {
     };
 
     const deleteNote = (id) => {
-        setNotes(notes.filter(note => note.id !== id));
+        if (window.confirm('Are you sure you want to delete this note?')) {
+            setNotes(notes.filter(note => note.id !== id));
+        }
     };
 
     return (
         <div>
             <h1>Note App</h1>
+            <Jokes />
             <hr />
             <div id="note-app">
                 <ColorPicker onSelectColor={setColorIsSelected} show={showColorPicker} setShowColorPicker={setShowColorPicker} addNote={addNote} />
