@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 // ColorPicker component
 const ColorPicker = ({ onSelectColor, show, setShowColorPicker, addNote }) => {

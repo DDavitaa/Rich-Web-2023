@@ -49,8 +49,8 @@ const App = () => {
     return (
         <div>
             <h1>Note App</h1>
-            <Jokes />
             <hr />
+            <Jokes />
             <div id="note-app">
                 <ColorPicker onSelectColor={setColorIsSelected} show={showColorPicker} setShowColorPicker={setShowColorPicker} addNote={addNote} />
                 {notes.map(note => (
@@ -65,6 +65,7 @@ const App = () => {
                 ))}
                 <button className="add-note" type="button" onClick={showColorPickerMenu}>Add a Note</button>
             </div>
+            
         </div>
     );
 };

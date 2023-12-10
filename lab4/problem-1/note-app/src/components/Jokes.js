@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { from, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+// Jokes component
 const Jokes = () => {
     const [data, setData] = useState(null);
     const [click, setClick] = useState(0);
@@ -34,17 +35,18 @@ const Jokes = () => {
     };
 
     return (
-        <div>
-        {data ? (
-            <div>
-            <div>{data.setup}</div>
-            {showPunchline && <div>{data.punchline}</div>}
-            <button onClick={handlePunchlineClick}>Show Punchline</button>
-            </div>
-        ) : (
-            <div>Loading...</div>
-        )}
-        <button onClick={handleRandomizeClick}>Randomize Joke</button>
+        <div className='joke'>
+            {data ? (
+                <div className='joke-container'>
+                    <div className='joke-setup'><b>Joke:</b> {data.setup}</div>
+                    {showPunchline && <div className='joke-punchline'><b>A:</b> {data.punchline}</div>}
+                    
+                </div>
+            ) : (
+                <div className='loading'>Loading...</div>
+            )}
+            <button className='joke-btn' onClick={handlePunchlineClick}>Show Punchline</button>
+            <button className='joke-btn' onClick={handleRandomizeClick}>Randomize Joke</button>
         </div>
     );
 };
