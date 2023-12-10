@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { fromEvent } from 'rxjs';
 
 // ColorPicker component
-const ColorPicker = ({ onSelectColor, show, setShowColorPicker }) => {
+const ColorPicker = ({ onSelectColor, show, setShowColorPicker, addNote }) => {
     const colors = ["#ffffff","#fcacac","#fffead","#a4faa2","#a3fdff","#cfa8ff","#faa0eb"];
 
     if (!show) {
@@ -21,7 +20,7 @@ const ColorPicker = ({ onSelectColor, show, setShowColorPicker }) => {
                     onClick={() => {
                       onSelectColor(color); // Pass the selected color instead of the index
                       setShowColorPicker(false); // Hide the color picker
-                      console.log(color); 
+                      addNote(color);
                     }}
                 />
                 ))}
@@ -31,4 +30,3 @@ const ColorPicker = ({ onSelectColor, show, setShowColorPicker }) => {
 };
 
 export default ColorPicker;
-
