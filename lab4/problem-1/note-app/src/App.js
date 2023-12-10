@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import ColorPicker from './ColorPicker.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+// App component
+const App = () => {
+    const [showColorPicker, setShowColorPicker] = useState(false);
+    const [colorIsSelected, setColorIsSelected] = useState(null);
+
+    const showColorPickerMenu = () => {
+        if (!showColorPicker) {
+            setShowColorPicker(true);
+        }
+    };
+
+    return (
+        <div>
+            <h1>Note App</h1>
+            <hr />
+            <div id="note-app">
+                <ColorPicker onSelectColor={setColorIsSelected} show={showColorPicker} setShowColorPicker={setShowColorPicker} />
+                <textarea className="note" placeholder='TEST NOTE'/>
+                <button className="add-note" type="button" onClick={showColorPickerMenu}>Add a Note</button>
+            </div>
+        </div>
+    );
+};
 
 export default App;

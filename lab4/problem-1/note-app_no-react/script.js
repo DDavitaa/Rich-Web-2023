@@ -18,11 +18,6 @@ getNotes().forEach(note => {
     notesContainer.insertBefore(noteElement, addNoteButton);
 });
 
-
-
-// array of colors: white, light red, light yellow, light green, light blue, light purple, light pink
-var colors = ["#ffffff","#fcacac","#fffead","#a4faa2","#a3fdff","#cfa8ff","#faa0eb"];
-
 // color picker menu
 var colorPicker = document.getElementById("color-picker");
 
@@ -58,7 +53,7 @@ function saveNotes(notes)
 // Builds new element to represent a new note
 function createNote(id, content, color) 
 {
-    colors = ["#ffffff","#fcacac","#fffead","#a4faa2","#a3fdff","#cfa8ff","#faa0eb"];
+    var colors = ["#ffffff","#fcacac","#fffead","#a4faa2","#a3fdff","#cfa8ff","#faa0eb"];
 
     // creates a new textarea element
     const element = document.createElement("textarea");
