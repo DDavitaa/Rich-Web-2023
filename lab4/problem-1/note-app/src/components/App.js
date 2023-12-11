@@ -3,12 +3,16 @@ import './App.css';
 import Note from './Note.js';
 import ColorPicker from './ColorPicker.js';
 import Jokes from './Jokes.js';
+import YouTubePlayer from './YoutubePlayer.js';
 
 // App component
 const App = () => {
     const [notes, setNotes] = useState(JSON.parse(localStorage.getItem("note-app_notes") || "[]"));
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [colorIsSelected, setColorIsSelected] = useState(null);
+
+    const [showPlayer, setShowPlayer] = useState(false);
+    const [player, setPlayer] = useState(null);
 
     useEffect(() => {
         localStorage.setItem("note-app_notes", JSON.stringify(notes));
@@ -50,7 +54,10 @@ const App = () => {
         <div>
             <h1>Note App</h1>
             <hr />
-            <Jokes />
+            <div className='above_notes'>
+                <Jokes player={player} setShowPlayer={setShowPlayer} />
+                {showPlayer && <YouTubePlayer videoId="f8mL0_4GeV0" setPlayer={setPlayer} shouldPlay={showPlayer} style={{ display: showPlayer ? 'block' : 'none' }} />}
+            </div>
             <div id="note-app">
                 <ColorPicker onSelectColor={setColorIsSelected} show={showColorPicker} setShowColorPicker={setShowColorPicker} addNote={addNote} />
                 {notes.map(note => (

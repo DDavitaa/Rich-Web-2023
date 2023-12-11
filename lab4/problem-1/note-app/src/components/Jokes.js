@@ -3,7 +3,7 @@ import { from, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 // Jokes component
-const Jokes = () => {
+const Jokes = ({ player, setShowPlayer }) => {
     const [data, setData] = useState(null);
     const [click, setClick] = useState(0);
     const [showPunchline, setShowPunchline] = useState(false);
@@ -20,18 +20,26 @@ const Jokes = () => {
             },
             error => console.error(error)
         );
+        
+        const currentCancelFetch = cancelFetch$.current;
 
         return () => {
-        cancelFetch$.current.next();
+            currentCancelFetch.next();
         };
     }, [click]);
 
     const handleRandomizeClick = () => {
         setClick(click + 1);
+        player.stopVideo();
     };
 
     const handlePunchlineClick = () => {
         setShowPunchline(true);
+        setShowPlayer(true);
+        if (player) {
+            player.playVideo();
+        }
+        
     };
 
     return (
@@ -43,10 +51,11 @@ const Jokes = () => {
                     
                 </div>
             ) : (
-                <div className='loading'>Loading...</div>
+                <div className='joke-container'>Loading Joke...</div>
             )}
             <button className='joke-btn' onClick={handlePunchlineClick}>Show Punchline</button>
             <button className='joke-btn' onClick={handleRandomizeClick}>Randomize Joke</button>
+            
         </div>
     );
 };

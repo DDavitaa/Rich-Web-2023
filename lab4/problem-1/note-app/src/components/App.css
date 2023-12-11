@@ -23,8 +23,8 @@ hr {
 #note-app {
     display: grid;
     grid-template-columns: repeat(auto-fill, 200px);
-    padding: 24px;
-    gap: 24px;
+    padding: 30px;
+    gap: 20px;
 }
 
 .note {
@@ -86,9 +86,14 @@ h2 {
     cursor: pointer;
 }
 
-.joke {
+.above_notes {
+    display: flex;
     margin-left: 30px;
     margin-top: 30px;
+    gap: 50px;
+}
+
+.joke {
     padding: 30px;
     border-radius: 10px;
     width: 40%;
@@ -129,6 +134,3 @@ b {
     cursor: pointer;
 }
 
-.loading {
-
-}
