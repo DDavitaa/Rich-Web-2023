@@ -50,6 +50,24 @@ const App = () => {
         }
     };
 
+    const moveNoteLeft = (id) => {
+        const index = notes.findIndex(note => note.id === id);
+        if (index > 0) {
+          const newNotes = [...notes];
+          [newNotes[index - 1], newNotes[index]] = [newNotes[index], newNotes[index - 1]];
+          setNotes(newNotes);
+        }
+      };
+      
+      const moveNoteRight = (id) => {
+        const index = notes.findIndex(note => note.id === id);
+        if (index < notes.length - 1) {
+          const newNotes = [...notes];
+          [newNotes[index], newNotes[index + 1]] = [newNotes[index + 1], newNotes[index]];
+          setNotes(newNotes);
+        }
+      };
+
     return (
         <div>
             <h1>Note App</h1>
@@ -68,6 +86,8 @@ const App = () => {
                         color={note.color}
                         onDelete={deleteNote}
                         onUpdate={updateNote}
+                        onMoveLeft={() => moveNoteLeft(note.id)}
+                        onMoveRight={() => moveNoteRight(note.id)}
                     />
                 ))}
                 <button className="add-note" type="button" onClick={showColorPickerMenu}>Add a Note</button>

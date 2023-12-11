@@ -30,7 +30,9 @@ const Jokes = ({ player, setShowPlayer }) => {
 
     const handleRandomizeClick = () => {
         setClick(click + 1);
-        player.stopVideo();
+        if (player) {
+            player.stopVideo();
+        }
     };
 
     const handlePunchlineClick = () => {
